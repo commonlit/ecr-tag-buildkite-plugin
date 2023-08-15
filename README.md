@@ -10,36 +10,37 @@ Add the following to your `pipeline.yml`:
 
 ```yml
 steps:
-  - key: tag-docker-image-ecr
-    plugins:
-      - peakon/ecr-tag#v0.0.4:
-          registry-id: ${AWS_ACCOUNT_ID}
-          repository: ${BUILDKITE_PIPELINE_NAME}
-          tag: ${BUILDKITE_COMMIT}
-          new-tags:
-          - ${BUILDKITE_BRANCH}-${BUILDKITE_COMMIT}
-          - ${BUILDKITE_BRANCH}
+    - key: tag-docker-image-ecr
+      plugins:
+          - commonlit/ecr-tag#e40532bbcb398d2584bac001e967114d6ecbb6a9:
+                registry-id: ${AWS_ACCOUNT_ID}
+                repository: ${BUILDKITE_PIPELINE_NAME}
+                tag: ${BUILDKITE_COMMIT}
+                new-tags:
+                    - ${BUILDKITE_BRANCH}-${BUILDKITE_COMMIT}
+                    - ${BUILDKITE_BRANCH}
 ```
+
 ## Requirements
 
-- AWS cli, jq
-- AWS IAM Permissions that allow `BatchGetImage` and `PutImage` operations.
+-   AWS cli, jq
+-   AWS IAM Permissions that allow `BatchGetImage` and `PutImage` operations.
 
 ## Configuration
 
-| property | description |
-| ---------|-------------|
+| property    | description                      |
+| ----------- | -------------------------------- |
 | registry-id | ECR registry ID (AWS account id) |
-| repository  | ECR repository name |
-| tag | Existing docker image tag |
-| new-tags | Array of tags to be created |
+| repository  | ECR repository name              |
+| tag         | Existing docker image tag        |
+| new-tags    | Array of tags to be created      |
 
 ### AWS profiles
 
 You can specify a custom AWS profile to be used by AWS CLI
 
-- in pipeline YAML (`aws_profile: profile_name`)
-- as `BUILDKITE_PLUGIN_ECR_TAG_AWS_PROFILE` environment variable (e.g. inside agent environment hook).
+-   in pipeline YAML (`aws_profile: profile_name`)
+-   as `BUILDKITE_PLUGIN_ECR_TAG_AWS_PROFILE` environment variable (e.g. inside agent environment hook).
 
 ## Developing
 
@@ -56,4 +57,4 @@ docker-compose run --rm tests
 3. Run shellcheck and plugin lint
 4. Commit and push your changes
 5. Send a pull request
->>>>>>> 8aa7528 (Initial commit)
+    > > > > > > > 8aa7528 (Initial commit)
